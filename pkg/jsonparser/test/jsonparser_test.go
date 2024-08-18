@@ -1,10 +1,9 @@
 package jsonparser_test
 
 import (
-	os "os"
+	commands "jsonparser/pkg/jsonparser"
+	"os"
 	"testing"
-
-	"github.com/qshogun/jsonparser/pkg/jsonparser"
 )
 
 func TestJsonParse(t *testing.T) {
@@ -16,7 +15,7 @@ func TestJsonParse(t *testing.T) {
 	}{
 		{
 			name:     "IsHappyStep1Valid",
-			function: jsonparser.TryParse,
+			function: commands.TryParse,
 			file:     "testdata/step1/valid.json",
 			expected: true,
 		},
@@ -24,10 +23,10 @@ func TestJsonParse(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			data, _ = os.ReadFile(test.file)
+			data, _ := os.ReadFile(test.file)
 			result := test.function(string(data))
 			if result != test.expected {
-				t.Errorf("Expected %s, got %s", test.expected, result)
+				t.Errorf("Expected %v, got %v", test.expected, result)
 			}
 		})
 	}
